@@ -18,7 +18,7 @@ def get_timestamp(date_string):
 
 def get_formatted_datetime(timestamp):
     date = datetime.fromtimestamp(timestamp, tz = constants.SANTIAGO_TIMEZONE)
-    date = f'{date.day} {constants.MONTHS_IN_SPANISH[date.month - 1]}, {date:%H:%M}'
+    date = f'{constants.DAYS_IN_SPANISH[date.weekday()]} {date.day}/{date.month}, {date:%H:%M}'
     return(date)
 
 def get_display_dataframe(tourney_data):
@@ -31,7 +31,7 @@ def get_display_dataframe(tourney_data):
         date = get_formatted_datetime(timestamp)
         expansion = constants.EXPANSION[tourney.expansion]
         organization = f'{constants.ORGANIZATION_LINK[tourney.organization]}#{constants.ORGANIZATION_NAME[tourney.organization]}'
-
+        address = tourney.address if tourney.format == 'presencial' else 'Online'
         display_data.loc[tourney.Index] = [date, 
                                            tourney.region, 
                                            expansion, 
@@ -41,24 +41,15 @@ def get_display_dataframe(tourney_data):
                                            tourney.capacity, 
                                            tourney.info_image_link, 
                                            tourney.signup_link, 
-                                           tourney.adress, 
+                                           address, 
                                            timestamp, 
                                            tourney.format, 
                                            tourney.info_image_link]
 
     display_data.sort_index(inplace = True)
-    display_data.sort_values(by = ['format'], kind = 'stable', inplace = True)
-    display_data.drop(columns = 'format')
+    display_data.sort_values(by = ['timestamp', 'format'], inplace = True)
 
     return(display_data)
-
-
-
-#drop si el ts es menor a current ts - 12h
-#en descarga, ignorar torneos que ya empezaron
-
-
-
 
 
 

@@ -1,0 +1,34 @@
+
+[client]
+showErrorDetails = 'none'
+
+[theme]
+base = 'light'
+
+primaryColor = '#D9A07A'
+backgroundColor = '#F6DF82'
+secondaryBackgroundColor = '#E8B08A'
+
+dataframeHeaderBackgroundColor = '#F5E3A3'
+
+baseFontSize = 16
+baseFontWeight = 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

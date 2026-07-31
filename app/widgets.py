@@ -7,6 +7,7 @@ from tourney_data import get_display_dataframe, get_tourney_data
 
 def tourney_data_table():
     data = get_tourney_data()
+
     st.dataframe(data = get_display_dataframe(data), 
                  hide_index = True, 
                  column_order = DISPLAYED_TOURNEY_INFO_COLUMNS, 

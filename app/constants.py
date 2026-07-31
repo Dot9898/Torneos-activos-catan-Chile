@@ -20,11 +20,8 @@ DISPLAYED_TOURNEY_INFO_COLUMN_CONFIG = {'Precio': st.column_config.NumberColumn(
                                         'Inscripción': st.column_config.LinkColumn(display_text = '↗')} #↗
 
 RECIEVED_DATETIME_FORMAT = '%d/%m/%Y %H:%M:%S'
-MONTHS_IN_SPANISH = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+DAYS_IN_SPANISH = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
 SANTIAGO_TIMEZONE = ZoneInfo('America/Santiago')
-
-
-
 
 
 
