@@ -1,0 +1,9 @@
+
+
+row height
+Cell (and header too) separators width and color
+
+Round corners
+Emojis
+Automatic horizontal resizing of columns, based on its largest element
+

@@ -3,11 +3,11 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import dataframe_image as dfi
 import constants
 
 
-#@st.cache_data(ttl = 120)
-def get_tourney_data():
+def fetch_tourney_data():
     return(pd.read_csv(constants.DATASHEET_LINK))
 
 def get_timestamp(date_string):
@@ -50,6 +50,36 @@ def get_display_dataframe(tourney_data):
     display_data.sort_values(by = ['timestamp', 'format'], inplace = True)
 
     return(display_data)
+
+def get_cropped_dataframe(tourney_data):
+    display_data = get_display_dataframe(tourney_data)
+    cropped_data = display_data[constants.IMAGE_TOURNEY_INFO_COLUMNS] #chequear cambiar org al final
+    return(cropped_data)
+
+def get_as_image(dataframe):
+    return(dfi.export(dataframe, 'Torneos_catan_Chile.png'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
