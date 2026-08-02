@@ -40,5 +40,5 @@ footer {
 [data-testid="stAppViewContainer"],
 [data-testid="stMain"],
 [data-testid="stMainBlockContainer"] {
-    min-width: 600px;
+    min-width: 500px;
 }
