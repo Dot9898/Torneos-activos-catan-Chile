@@ -3,11 +3,13 @@
 import streamlit as st
 from style import set_style
 from widgets import tourney_data_table, get_tourney_data_image_bytes, table_download_button
-from tourney_data import fetch_tourney_data
+from tourney_data import fetch_tourney_data, get_processed_dataframe
 
 
 if 'tourney_data' not in st.session_state:
     st.session_state['tourney_data'] = fetch_tourney_data()
+if 'processed_data' not in st.session_state:
+    st.session_state['processed_data'] = get_processed_dataframe(st.session_state['tourney_data'])
 if 'image_bytes' not in st.session_state:
     st.session_state['image_bytes'] = get_tourney_data_image_bytes()
 

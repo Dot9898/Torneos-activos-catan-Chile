@@ -7,15 +7,16 @@ from dataframe_to_image import convert_to_image_bytes, add_background_and_title
 
 
 def tourney_data_table():
-    data = st.session_state['tourney_data']
+    data = st.session_state['processed_data']
     st.dataframe(data = get_display_dataframe(data), 
                  hide_index = True, 
                  column_order = constants.DISPLAYED_TOURNEY_INFO_COLUMNS, 
                  column_config = constants.DISPLAYED_TOURNEY_INFO_COLUMN_CONFIG, 
-                 placeholder = '-')
+                 placeholder = '-', 
+                 height = 'content')
 
 def get_tourney_data_image_bytes():
-    data = st.session_state['tourney_data']
+    data = st.session_state['processed_data']
 
     dataframe = get_cropped_dataframe(data)
     table_bytes = convert_to_image_bytes(dataframe, constants.IMAGE_STYLE, constants.EMOJI_PATHS)
@@ -23,7 +24,7 @@ def get_tourney_data_image_bytes():
     font_bytes = constants.CINZEL_PATH.read_bytes()
 
     title = 'Torneos activos de catan'
-    subtitle = f'Semana del {get_last_monday_string()}'
+    subtitle = f'Semana del {get_last_monday_string(delay = constants.NEW_WEEK_DELAY)}'
 
     image_bytes = add_background_and_title(table_bytes, 
                                            background_bytes, 
@@ -36,7 +37,7 @@ def get_tourney_data_image_bytes():
 
 def table_download_button():
     image_bytes = st.session_state['image_bytes']
-    file_name = f'Torneos catan semana {get_last_monday_string()}.png'
+    file_name = f'Torneos catan semana {get_last_monday_string(delay = constants.NEW_WEEK_DELAY)}.png'
     st.download_button('Compartir', 
                        image_bytes, 
                        file_name = file_name, 

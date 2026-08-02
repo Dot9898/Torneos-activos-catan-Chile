@@ -7,8 +7,11 @@ from matplotlib.font_manager import FontProperties
 
 
 
+IS_TEST_BUILD = False
+
 TABLE_DPI = 700
 BACKGROUND_CENTER = 800
+NEW_WEEK_DELAY = -8 * 3600   #Image text starts the next week 8 hours in advance
 
 
 DATASHEET_LINK = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQC2ACINwhk_rmvTmliMETVqisjFDfOR5vg_glzDtyz_Vns6G3-0AvkWqmvthq-lQpxbUrt39AaTzRh/pub?output=csv'
@@ -53,7 +56,7 @@ BACKGROUND_PATH = IMG_PATH / 'catan_background.png'
 TABLE_BACKGROUND_PATH = IMG_PATH / 'catan_table_background.jpg'
 
 DISPLAYED_TOURNEY_INFO_COLUMNS = ['Fecha', 'Región', 'Expansión', 'Nombre', 'Organización', 'Precio', 'Cupos', 'Información', 'Inscripción', 'Dirección']
-DISPLAYED_TOURNEY_INFO_COLUMN_CONFIG = {'Precio': st.column_config.NumberColumn(format = 'dollar'), 
+DISPLAYED_TOURNEY_INFO_COLUMN_CONFIG = {'Precio': st.column_config.MarkdownColumn(alignment = 'right'), 
                                         'Organización': st.column_config.LinkColumn(display_text = '.*#(.*)'), 
                                         'Información': st.column_config.ImageColumn(), 
                                         'Inscripción': st.column_config.LinkColumn(display_text = '↗')} #↗

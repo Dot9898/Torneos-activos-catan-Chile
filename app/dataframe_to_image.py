@@ -374,11 +374,9 @@ def add_background_and_title(
         BytesIO(background_bytes)
     ).convert("RGBA")
 
-
     table = Image.open(
         BytesIO(table_bytes)
     ).convert("RGBA")
-
 
     # Resize table if needed
     max_width = background.width - 200
@@ -395,18 +393,17 @@ def add_background_and_title(
             Image.Resampling.LANCZOS
         )
 
-
     # Layout spacing
-    top_margin = 40
+    extra_background = 80
+
+    top_margin = 40 + extra_background
     title_margin = 15
     subtitle_margin = 40
-    bottom_margin = 50
-
+    bottom_margin = 50 + extra_background
 
     # Fonts
     title_font_size = 80
     subtitle_font_size = 35
-
 
     title_font = ImageFont.truetype(
         BytesIO(font_bytes),
@@ -418,9 +415,7 @@ def add_background_and_title(
         subtitle_font_size
     )
 
-
     draw = ImageDraw.Draw(background)
-
 
     # Shrink title until it fits
     while draw.textbbox(
@@ -436,7 +431,6 @@ def add_background_and_title(
             title_font_size
         )
 
-
     # Shrink subtitle until it fits
     while draw.textbbox(
         (0, 0),
@@ -451,20 +445,17 @@ def add_background_and_title(
             subtitle_font_size
         )
 
-
     title_height = draw.textbbox(
         (0, 0),
         title,
         font=title_font
     )[3]
 
-
     subtitle_height = draw.textbbox(
         (0, 0),
         subtitle,
         font=subtitle_font
     )[3]
-
 
     # Infer final required height from table size
     required_height = (
@@ -477,7 +468,6 @@ def add_background_and_title(
         + bottom_margin
     )
 
-
     # Crop background around chosen center
     background = crop_background(
         background,
@@ -485,9 +475,7 @@ def add_background_and_title(
         background_center_y
     )
 
-
     draw = ImageDraw.Draw(background)
-
 
     # Draw title
     title_width = draw.textbbox(
@@ -495,7 +483,6 @@ def add_background_and_title(
         title,
         font=title_font
     )[2]
-
 
     draw.text(
         (
@@ -507,14 +494,12 @@ def add_background_and_title(
         fill=(50, 40, 20, 255)
     )
 
-
     # Draw subtitle
     subtitle_width = draw.textbbox(
         (0, 0),
         subtitle,
         font=subtitle_font
     )[2]
-
 
     draw.text(
         (
@@ -526,7 +511,6 @@ def add_background_and_title(
         fill=(50, 40, 20, 255)
     )
 
-
     # Paste table
     table_y = (
         top_margin
@@ -536,11 +520,9 @@ def add_background_and_title(
         + subtitle_margin
     )
 
-
     table_x = (
         background.width - table.width
     ) // 2
-
 
     background.alpha_composite(
         table,
@@ -549,7 +531,6 @@ def add_background_and_title(
             table_y
         )
     )
-
 
     output = BytesIO()
 
@@ -560,7 +541,6 @@ def add_background_and_title(
     )
 
     return output.getvalue()
-
 
 
 
