@@ -16,12 +16,18 @@ NEW_WEEK_DELAY = -8 * 3600   #Image text starts the next week 8 hours in advance
 
 DATASHEET_LINK = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQC2ACINwhk_rmvTmliMETVqisjFDfOR5vg_glzDtyz_Vns6G3-0AvkWqmvthq-lQpxbUrt39AaTzRh/pub?output=csv'
 
+ORGANIZATION_NAME = {'challenger': 'Challenger Chile', 
+                     'titanes': 'Titanes de Catan', 
+                     'secata': 'La Secata del Catan', 
+                     'catanium': 'Catanium', 
+                     'devir': 'Devir Chile'}
+ORGANIZATION_LINK = {'challenger': 'https://www.instagram.com/challengercatanchile', 
+                     'titanes': 'https://www.instagram.com/torneocatancyc', 
+                     'secata': 'https://www.instagram.com/lasecatadelcatan/', 
+                     'catanium': 'https://catanium.cl/', 
+                     'devir': 'https://devir.cl/'}
 EXPANSION = {'base': '🌾Base', 
              'cyc': '⚔️Ciudades y caballeros'}
-ORGANIZATION_NAME = {'challenger': 'Challenger Chile', 
-                     'titanes': 'Titanes de Catan'}
-ORGANIZATION_LINK = {'challenger': 'https://www.instagram.com/challengercatanchile', 
-                     'titanes': 'https://www.instagram.com/torneocatancyc'}
 
 ROOT_PATH = Path(__file__).resolve().parent.parent
 IMG_PATH = ROOT_PATH / 'assets' / 'img'
