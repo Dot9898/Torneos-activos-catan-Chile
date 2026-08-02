@@ -80,7 +80,7 @@ def get_cropped_dataframe(tourney_data):
         display_data.at[tourney.Index, 'Precio'] = f'${float(tourney.Precio):,.0f}'.replace(',', '.')
         display_data.at[tourney.Index, 'Organiza'] = tourney.Organización.split('#')[1]
     
-    cropped_data = display_data[constants.IMAGE_TOURNEY_INFO_COLUMNS]
+    cropped_data = display_data[constants.IMAGE_TOURNEY_INFO_COLUMNS].copy()
     cropped_data.drop(index = to_drop, inplace = True)
     return(cropped_data)
 

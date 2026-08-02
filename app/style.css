@@ -35,3 +35,10 @@ footer {
     margin-top: -60px;
 }
 
+
+.stApp,
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"],
+[data-testid="stMainBlockContainer"] {
+    min-width: 600px;
+}
