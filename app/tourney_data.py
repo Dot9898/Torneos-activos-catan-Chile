@@ -4,10 +4,14 @@ import pandas as pd
 from datetime import datetime, timedelta
 from time import time
 import constants
+import urllib.request
+import io
 
 
 def fetch_tourney_data():
-    return(pd.read_csv(constants.DATASHEET_LINK))
+    response = urllib.request.urlopen(constants.DATASHEET_LINK)
+    data = response.read().decode('utf-8')
+    return(pd.read_csv(io.StringIO(data)))
 
 def get_timestamp(date_string):
     date = datetime.strptime(date_string, constants.RECIEVED_DATETIME_FORMAT)

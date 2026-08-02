@@ -1,7 +1,7 @@
 
 
 .stApp {
-    background-image: url('https://raw.githubusercontent.com/Dot9898/Torneos-activos-catan-Chile/refs/heads/main/img/catan_background.png');
+    background-image: url('/assets/img/catan_background.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

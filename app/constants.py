@@ -23,7 +23,7 @@ ORGANIZATION_LINK = {'challenger': 'https://www.instagram.com/challengercatanchi
 ROOT_PATH = Path(__file__).resolve().parent.parent
 IMG_PATH = ROOT_PATH / 'assets' / 'img'
 
-CINZEL_PATH = ROOT_PATH / 'assets' / 'fonts' / 'Cinzel-VariableFont_wght.ttf'
+CINZEL_PATH = ROOT_PATH / 'assets' / 'fonts' / 'Cinzel-VariableFont.ttf'
 CINZEL = FontProperties(fname = CINZEL_PATH)
 
 IMAGE_STYLE = {'header_background_color': '#F5E3A3', 

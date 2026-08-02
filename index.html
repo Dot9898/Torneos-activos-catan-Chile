@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Torneos Catan Chile</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@stlite/browser/build/stlite.css"
+    >
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="module">
+
+import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser/build/stlite.js";
+
+mount(
+    {
+        entrypoint: "app/frontend.py",
+
+        files: {
+            "app/frontend.py": {
+                url: "./app/frontend.py"
+            },
+
+            "app/constants.py": {
+                url: "./app/constants.py"
+            },
+
+            "app/dataframe_to_image.py": {
+                url: "./app/dataframe_to_image.py"
+            },
+
+            "app/style.py": {
+                url: "./app/style.py"
+            },
+
+            "app/tourney_data.py": {
+                url: "./app/tourney_data.py"
+            },
+
+            "app/widgets.py": {
+                url: "./app/widgets.py"
+            },
+
+            "app/style.css": {
+                url: "./app/style.css"
+            },
+
+            "assets/fonts/Cinzel-VariableFont.ttf": {
+                url: "./assets/fonts/Cinzel-VariableFont.ttf"
+            },
+
+            "assets/img/catan_background.png": {
+                url: "./assets/img/catan_background.png"
+            },
+
+            "assets/img/catan_table_background.jpg": {
+                url: "./assets/img/catan_table_background.jpg"
+            },
+
+            "assets/img/swords.png": {
+                url: "./assets/img/swords.png"
+            },
+
+            "assets/img/wheat.png": {
+                url: "./assets/img/wheat.png"
+            }
+        },
+
+        requirements: [
+            "pandas",
+            "numpy",
+            "matplotlib",
+            "Pillow",
+            "tzdata"
+        ],
+
+        streamlitConfig: {
+            "client.showErrorDetails": "full",
+
+            "theme.base": "light",
+            "theme.primaryColor": "#D9A07A",
+            "theme.backgroundColor": "#F6DF82",
+            "theme.secondaryBackgroundColor": "#E8B08A",
+            "theme.dataframeHeaderBackgroundColor": "#F5E3A3",
+            "theme.baseFontSize": 16,
+            "theme.baseFontWeight": 500
+        }
+
+    },
+
+    document.getElementById("root")
+);
+
+</script>
+
+</body>
+</html>
