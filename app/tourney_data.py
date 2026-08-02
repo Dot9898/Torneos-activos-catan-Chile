@@ -77,7 +77,7 @@ def get_cropped_dataframe(tourney_data):
             to_drop.append(tourney.Index)
         if tourney.timestamp > get_last_monday_timestamp() + 14 * 24 * 3600:
             to_drop.append(tourney.Index)   #Don't download tournaments that are more than 2 weeks from now
-        display_data.at[tourney.Index, 'Precio'] = f'${tourney.Precio:,.0f}'.replace(',', '.')
+        display_data.at[tourney.Index, 'Precio'] = f'${float(tourney.Precio):,.0f}'.replace(',', '.')
         display_data.at[tourney.Index, 'Organiza'] = tourney.Organización.split('#')[1]
     
     cropped_data = display_data[constants.IMAGE_TOURNEY_INFO_COLUMNS]
