@@ -69,6 +69,7 @@ def get_last_monday_timestamp():
 
 def get_cropped_dataframe(tourney_data):
     display_data = get_display_dataframe(tourney_data)
+    display_data['Precio'] = display_data['Precio'].astype(str)
     to_drop = []
 
     for tourney in display_data.itertuples():
