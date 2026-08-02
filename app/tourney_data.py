@@ -22,7 +22,10 @@ def get_timestamp(date_string):
 
 def get_formatted_datetime(timestamp):
     date = datetime.fromtimestamp(timestamp, tz = constants.SANTIAGO_TIMEZONE)
-    date = f'{constants.DAYS_IN_SPANISH[date.weekday()]} {date.day}/{date.month}, {date:%H:%M}'
+    if date.hour == 0:
+        date = f'{constants.DAYS_IN_SPANISH[date.weekday()]} {date.day}/{date.month}'
+    else:
+        date = f'{constants.DAYS_IN_SPANISH[date.weekday()]} {date.day}/{date.month}, {date:%H:%M}'
     return(date)
 
 def process_row(tourney, processed_data):
@@ -33,21 +36,20 @@ def process_row(tourney, processed_data):
     date = get_formatted_datetime(timestamp)
     expansion = constants.EXPANSION[tourney.expansion]
     organization = f'{constants.ORGANIZATION_LINK[tourney.organization]}#{constants.ORGANIZATION_NAME[tourney.organization]}'
-    price = f'${float(tourney.price):,.0f}'.replace(',', '.')
-    address = tourney.address if tourney.format == 'presencial' else 'Online'
+    price = pd.NA if pd.isna(tourney.price) else f'${float(tourney.price):,.0f}'.replace(',', '.')
     processed_data.loc[tourney.Index] = [date, 
-                                        tourney.region, 
-                                        expansion, 
-                                        tourney.name, 
-                                        organization, 
-                                        price, 
-                                        tourney.capacity, 
-                                        tourney.info_image_link, 
-                                        tourney.signup_link, 
-                                        address, 
-                                        timestamp, 
-                                        tourney.format, 
-                                        tourney.info_image_link]
+                                         tourney.region, 
+                                         expansion, 
+                                         tourney.name, 
+                                         organization, 
+                                         price, 
+                                         tourney.capacity, 
+                                         tourney.info_image_link, 
+                                         tourney.signup_link, 
+                                         tourney.address, 
+                                         timestamp, 
+                                         tourney.format, 
+                                         tourney.info_image_link]
 
 def get_processed_dataframe(tourney_data):
     processed_data = pd.DataFrame(columns = constants.DISPLAYED_TOURNEY_INFO_COLUMNS + ['timestamp', 'format', 'info_image_link'])
