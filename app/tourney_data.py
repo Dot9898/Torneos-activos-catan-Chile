@@ -57,12 +57,12 @@ def get_processed_dataframe(tourney_data):
 
     for tourney in tourney_data.itertuples():
         if constants.IS_LIVE_BUILD:
-            process_row(tourney, processed_data)
-        else:
             try:
                 process_row(tourney, processed_data)
             except:   #If the data processing throws an exception, the tournament just isn't added
                 pass
+        else:
+            process_row(tourney, processed_data)
 
     processed_data.sort_index(inplace = True)
     processed_data.sort_values(by = ['timestamp', 'format'], inplace = True)
