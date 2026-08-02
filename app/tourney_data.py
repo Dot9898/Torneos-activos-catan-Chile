@@ -54,7 +54,7 @@ def get_processed_dataframe(tourney_data):
     processed_data['format'] = pd.Categorical(processed_data['format'], categories = ['presencial', 'online'], ordered = True)
 
     for tourney in tourney_data.itertuples():
-        if constants.IS_TEST_BUILD:
+        if constants.IS_LIVE_BUILD:
             process_row(tourney, processed_data)
         else:
             try:

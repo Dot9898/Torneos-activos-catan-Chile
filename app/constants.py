@@ -7,7 +7,7 @@ from matplotlib.font_manager import FontProperties
 
 
 
-IS_TEST_BUILD = False
+IS_LIVE_BUILD = True
 
 TABLE_DPI = 700
 BACKGROUND_CENTER = 800
