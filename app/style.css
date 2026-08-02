@@ -10,3 +10,28 @@
 .stHeading h1 {
     color: #3F3028 !important;
 }
+
+
+/* Hide Streamlit top bar */
+header[data-testid="stHeader"] {
+    display: none;
+}
+
+/* Hide toolbar/menu */
+div[data-testid="stToolbar"] {
+    display: none;
+}
+
+#MainMenu {
+    display: none;
+}
+
+footer {
+    display: none;
+}
+
+/* Remove the space left by the header */
+.stApp {
+    margin-top: -60px;
+}
+
