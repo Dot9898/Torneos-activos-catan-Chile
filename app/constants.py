@@ -11,7 +11,8 @@ IS_LIVE_BUILD = True
 
 TABLE_DPI = 700
 BACKGROUND_CENTER = 800
-NEW_WEEK_DELAY = -8 * 3600   #Image text starts the next week 8 hours in advance
+NEW_MONTH_DELAY = 3 * 24 * 3600   #Image text starts the next month 3 days in advance
+TOURNAMENT_DOWNLOAD_LIMIT = 30 * 24 * 3600
 
 
 DATASHEET_LINK = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQC2ACINwhk_rmvTmliMETVqisjFDfOR5vg_glzDtyz_Vns6G3-0AvkWqmvthq-lQpxbUrt39AaTzRh/pub?output=csv'
@@ -20,14 +21,21 @@ ORGANIZATION_NAME = {'challenger': 'Challenger Chile',
                      'titanes': 'Titanes de Catan', 
                      'secata': 'La Secata del Catan', 
                      'catanium': 'Catanium', 
-                     'devir': 'Devir Chile'}
+                     'juntas_cataneras': 'Juntas Cataneras', 
+                     'devir': 'Devir Chile', 
+                     'adventure_dreams': 'Adventure Dreams Games'}
 ORGANIZATION_LINK = {'challenger': 'https://www.instagram.com/challengercatanchile', 
                      'titanes': 'https://www.instagram.com/torneocatancyc', 
                      'secata': 'https://www.instagram.com/lasecatadelcatan/', 
                      'catanium': 'https://catanium.cl/', 
-                     'devir': 'https://devir.cl/'}
+                     'juntas_cataneras': 'https://chat.whatsapp.com/KcIeawX1YE2BJNaK1pA6dW', 
+                     'devir': 'https://devir.cl/', 
+                     'adventure_dreams': 'https://www.instagram.com/adventuredreamsgames/'}
+
 EXPANSION = {'base': '🌾Base', 
-             'cyc': '⚔️Ciudades y caballeros'}
+             'cyc': '⚔️Ciudades y caballeros', 
+             'incas': '🦙Auge de los incas', 
+             'tm': '🐉Tierra maldita'}
 
 ROOT_PATH = Path(__file__).resolve().parent.parent
 IMG_PATH = ROOT_PATH / 'assets' / 'img'
@@ -57,7 +65,9 @@ IMAGE_STYLE = {'header_background_color': '#F5E3A3',
                'dpi': TABLE_DPI}
 
 EMOJI_PATHS = {'🌾': IMG_PATH / 'wheat.png', 
-               '⚔️': IMG_PATH / 'swords.png'}
+               '⚔️': IMG_PATH / 'swords.png', 
+               '🦙': IMG_PATH / 'llama.png', 
+               '🐉': IMG_PATH / 'dragon.png'}
 BACKGROUND_PATH = IMG_PATH / 'catan_background.png'
 TABLE_BACKGROUND_PATH = IMG_PATH / 'catan_table_background.jpg'
 
@@ -66,11 +76,11 @@ DISPLAYED_TOURNEY_INFO_COLUMN_CONFIG = {'Precio': st.column_config.MarkdownColum
                                         'Organización': st.column_config.LinkColumn(display_text = '.*#(.*)'), 
                                         'Información': st.column_config.ImageColumn(), 
                                         'Inscripción': st.column_config.LinkColumn(display_text = '↗')} #↗
-IMAGE_TOURNEY_INFO_COLUMNS = ['Fecha', 'Región', 'Expansión', 'Nombre', 'Precio', 'Cupos', 'Organiza']
+IMAGE_TOURNEY_INFO_COLUMNS = ['Fecha', 'Región', 'Expansión', 'Nombre', 'Precio', 'Organiza']
 
 RECIEVED_DATETIME_FORMAT = '%d/%m/%Y %H:%M:%S'
 DAYS_IN_SPANISH = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
-MONTHS_IN_SPANISH = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+MONTHS_IN_SPANISH = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 SANTIAGO_TIMEZONE = ZoneInfo('America/Santiago')
 
 

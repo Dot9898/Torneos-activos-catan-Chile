@@ -5,6 +5,7 @@ from matplotlib.patches import FancyBboxPatch, Rectangle
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
+import pandas as pd
 
 
 #Written by AI
@@ -18,7 +19,10 @@ def convert_to_fig(dataframe, image_style, emoji_paths):
 
     def split_emoji(text):
 
-        text = str(text)
+        if pd.isna(text):
+            text = "-"
+        else:
+            text = str(text)
 
         for emoji in emoji_paths:
 
@@ -82,7 +86,7 @@ def convert_to_fig(dataframe, image_style, emoji_paths):
 
         cell_widths = [
             get_cell_width(value)
-            for value in dataframe[column].astype(str)
+            for value in dataframe[column]
         ]
 
         column_widths.append(

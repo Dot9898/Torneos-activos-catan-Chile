@@ -73,15 +73,12 @@ def get_display_dataframe(processed_dataframe):
     display_dataframe = display_dataframe[constants.DISPLAYED_TOURNEY_INFO_COLUMNS]
     return(display_dataframe)
 
-def get_last_monday_timestamp(delay = 0):
-    now = datetime.fromtimestamp(time() - delay)
-    last_monday = (now - timedelta(days = now.weekday()))
-    last_monday = last_monday.replace(hour = 0,
-                                      minute = 0,
-                                      second = 0,
-                                      microsecond = 0)
-    last_monday_ts = last_monday.timestamp()
-    return(last_monday_ts)
+def get_month_start_timestamp(delay = 0):
+    now = time() + delay
+    now = datetime.fromtimestamp(now)
+    month_start = now.replace(day = 1, hour = 0, minute = 0, second = 0, microsecond = 0)
+    month_start_ts = month_start.timestamp()
+    return(month_start_ts)
 
 def get_cropped_dataframe(processed_dataframe):
     cropped_data = processed_dataframe.copy()
@@ -90,24 +87,18 @@ def get_cropped_dataframe(processed_dataframe):
     for tourney in cropped_data.itertuples():
         if time() > tourney.timestamp:   #Don't download tournaments that already started
             to_drop.append(tourney.Index)
-        if tourney.timestamp > get_last_monday_timestamp(delay = constants.NEW_WEEK_DELAY) + 14 * 24 * 3600:
-            to_drop.append(tourney.Index)   #Don't download tournaments that are more than 2 weeks from now
+        if tourney.timestamp > get_month_start_timestamp(delay = constants.NEW_MONTH_DELAY) + constants.TOURNAMENT_DOWNLOAD_LIMIT:
+            to_drop.append(tourney.Index)
         cropped_data.at[tourney.Index, 'Organiza'] = tourney.Organización.split('#')[1]
     
     cropped_data = cropped_data[constants.IMAGE_TOURNEY_INFO_COLUMNS].copy()
     cropped_data.drop(index = to_drop, inplace = True)
     return(cropped_data)
 
-def get_last_monday_string(delay = 0):
-    last_monday = datetime.fromtimestamp(get_last_monday_timestamp(delay))
-    last_monday_string = f'{last_monday.day} de {constants.MONTHS_IN_SPANISH[last_monday.month - 1]}'
-    return(last_monday_string)
-
-
-
-
-
-
+def get_current_month_string(delay = 0):
+    month_start = datetime.fromtimestamp(get_month_start_timestamp(delay))
+    current_month_string = constants.MONTHS_IN_SPANISH[month_start.month - 1]
+    return(current_month_string)
 
 
 

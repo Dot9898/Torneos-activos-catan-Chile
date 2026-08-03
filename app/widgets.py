@@ -2,7 +2,7 @@
 
 import streamlit as st
 import constants
-from tourney_data import get_display_dataframe, get_cropped_dataframe, get_last_monday_string
+from tourney_data import get_display_dataframe, get_cropped_dataframe, get_current_month_string
 from dataframe_to_image import convert_to_image_bytes, add_background_and_title
 
 
@@ -13,7 +13,7 @@ def tourney_data_table():
                  column_order = constants.DISPLAYED_TOURNEY_INFO_COLUMNS, 
                  column_config = constants.DISPLAYED_TOURNEY_INFO_COLUMN_CONFIG, 
                  placeholder = '-', 
-                 height = 'content')
+                 width = 'stretch')
 
 def get_tourney_data_image_bytes():
     data = st.session_state['processed_data']
@@ -24,7 +24,7 @@ def get_tourney_data_image_bytes():
     font_bytes = constants.CINZEL_PATH.read_bytes()
 
     title = 'Torneos activos de catan'
-    subtitle = f'Semana del {get_last_monday_string(delay = constants.NEW_WEEK_DELAY)}'
+    subtitle = f'{get_current_month_string(delay = constants.NEW_MONTH_DELAY)} 2026'
 
     image_bytes = add_background_and_title(table_bytes, 
                                            background_bytes, 
@@ -32,12 +32,12 @@ def get_tourney_data_image_bytes():
                                            title, 
                                            subtitle, 
                                            constants.BACKGROUND_CENTER)
-        
+    
     return(image_bytes)
 
 def table_download_button():
     image_bytes = st.session_state['image_bytes']
-    file_name = f'Torneos catan semana {get_last_monday_string(delay = constants.NEW_WEEK_DELAY)}.png'
+    file_name = f'Torneos catan {get_current_month_string(delay = constants.NEW_MONTH_DELAY)} 2026.png'
     st.download_button('Compartir', 
                        image_bytes, 
                        file_name = file_name, 
