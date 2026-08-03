@@ -30,7 +30,7 @@ def get_formatted_datetime(timestamp):
 
 def process_row(tourney, processed_data):
     timestamp = get_timestamp(tourney.date)
-    if time() > timestamp + 12 * 3600:   #Don't show tournaments after 12h of their start
+    if time() > timestamp + 24 * 3600:   #Don't show tournaments after 24h of their start
         return
 
     date = get_formatted_datetime(timestamp)
