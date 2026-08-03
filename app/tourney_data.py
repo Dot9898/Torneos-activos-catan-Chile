@@ -30,7 +30,7 @@ def get_formatted_datetime(timestamp):
 
 def process_row(tourney, processed_data):
     timestamp = get_timestamp(tourney.date)
-    if time() > timestamp + 24 * 3600:   #Don't show tournaments after 24h of their start
+    if time() > timestamp + constants.TIME_TOURNAMENTS_ARE_SHOWN_AFTER_STARTING:
         return
 
     date = get_formatted_datetime(timestamp)
@@ -85,9 +85,9 @@ def get_cropped_dataframe(processed_dataframe):
     to_drop = []
 
     for tourney in cropped_data.itertuples():
-        if time() > tourney.timestamp:   #Don't download tournaments that already started
+        if time() > tourney.timestamp + constants.TIME_TOURNAMENTS_ARE_SHOWN_AFTER_STARTING:
             to_drop.append(tourney.Index)
-        if tourney.timestamp > get_month_start_timestamp(delay = constants.NEW_MONTH_DELAY) + constants.TOURNAMENT_DOWNLOAD_LIMIT:
+        if tourney.timestamp > get_month_start_timestamp() + constants.TOURNAMENT_DOWNLOAD_LIMIT:
             to_drop.append(tourney.Index)
         cropped_data.at[tourney.Index, 'Organiza'] = tourney.Organización.split('#')[1]
     

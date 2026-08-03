@@ -12,7 +12,8 @@ IS_LIVE_BUILD = True
 TABLE_DPI = 700
 BACKGROUND_CENTER = 800
 NEW_MONTH_DELAY = 3 * 24 * 3600   #Image text starts the next month 3 days in advance
-TOURNAMENT_DOWNLOAD_LIMIT = 30 * 24 * 3600
+TOURNAMENT_DOWNLOAD_LIMIT = 31 * 24 * 3600
+TIME_TOURNAMENTS_ARE_SHOWN_AFTER_STARTING = 24 * 3600
 
 
 DATASHEET_LINK = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQC2ACINwhk_rmvTmliMETVqisjFDfOR5vg_glzDtyz_Vns6G3-0AvkWqmvthq-lQpxbUrt39AaTzRh/pub?output=csv'
