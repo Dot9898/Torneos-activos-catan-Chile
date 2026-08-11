@@ -2,3 +2,4 @@ streamlit
 matplotlib
 Pillow
 pandas
+st_screen_stats

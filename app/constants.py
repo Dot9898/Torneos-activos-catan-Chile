@@ -14,6 +14,8 @@ BACKGROUND_CENTER = 800
 NEW_MONTH_DELAY = 3 * 24 * 3600   #Image text starts the next month 3 days in advance
 TOURNAMENT_DOWNLOAD_LIMIT = 31 * 24 * 3600
 TIME_TOURNAMENTS_ARE_SHOWN_AFTER_STARTING = 24 * 3600
+ADRESS_COLUMN_WIDTH_ADJUSTMENT = -20
+ALWAYS_SHOW_ONLINE_AFTER_PRESENCIAL = False
 
 
 DATASHEET_LINK = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQC2ACINwhk_rmvTmliMETVqisjFDfOR5vg_glzDtyz_Vns6G3-0AvkWqmvthq-lQpxbUrt39AaTzRh/pub?output=csv'
@@ -24,14 +26,17 @@ ORGANIZATION_NAME = {'challenger': 'Challenger Chile',
                      'catanium': 'Catanium', 
                      'juntas_cataneras': 'Juntas Cataneras', 
                      'devir': 'Devir Chile', 
-                     'adventure_dreams': 'Adventure Dreams Games'}
+                     'adventure_dreams': 'Adventure Dreams Games', 
+                     'guarida_goblins': 'La Guarida de Goblins'}
+
 ORGANIZATION_LINK = {'challenger': 'https://www.instagram.com/challengercatanchile', 
                      'titanes': 'https://www.instagram.com/torneocatancyc', 
                      'secata': 'https://www.instagram.com/lasecatadelcatan/', 
                      'catanium': 'https://catanium.cl/', 
-                     'juntas_cataneras': 'https://chat.whatsapp.com/KcIeawX1YE2BJNaK1pA6dW', 
+                     'juntas_cataneras': 'https://www.instagram.com/juntascatanerascl/', 
                      'devir': 'https://devir.cl/', 
-                     'adventure_dreams': 'https://www.instagram.com/adventuredreamsgames/'}
+                     'adventure_dreams': 'https://www.instagram.com/adventuredreamsgames/', 
+                     'guarida_goblins': 'https://www.instagram.com/laguaridadegoblins/'}
 
 EXPANSION = {'base': '🌾Base', 
              'cyc': '⚔️Ciudades y caballeros', 
@@ -43,6 +48,7 @@ IMG_PATH = ROOT_PATH / 'assets' / 'img'
 
 CINZEL_PATH = ROOT_PATH / 'assets' / 'fonts' / 'Cinzel-VariableFont.ttf'
 CINZEL = FontProperties(fname = CINZEL_PATH)
+SOURCE_SANS_PATH = ROOT_PATH / 'assets' / 'fonts' / 'SourceSans3-Medium.ttf'
 
 IMAGE_STYLE = {'header_background_color': '#F5E3A3', 
                'header_separator_color': '#e1d198', 

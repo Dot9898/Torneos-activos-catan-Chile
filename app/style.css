@@ -11,6 +11,11 @@
     color: #3F3028 !important;
 }
 
+.stHeading h2 {
+    color: #3F3028 !important;
+    font-weight: 700 !important;
+}
+
 /* Hide Streamlit top bar */
 header[data-testid="stHeader"] {
     display: none;
@@ -34,10 +39,11 @@ footer {
     margin-top: -60px;
 }
 
-
+/*
 .stApp,
 [data-testid="stAppViewContainer"],
 [data-testid="stMain"],
 [data-testid="stMainBlockContainer"] {
     min-width: 500px;
 }
+*/

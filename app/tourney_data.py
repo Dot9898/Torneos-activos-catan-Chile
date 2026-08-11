@@ -1,12 +1,12 @@
 
 
-import streamlit as st
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime
 from time import time
 import constants
 import urllib.request
 import io
+from PIL import ImageFont
 
 
 def fetch_tourney_data():
@@ -29,6 +29,9 @@ def get_formatted_datetime(timestamp):
     return(date)
 
 def process_row(tourney, processed_data):
+    if tourney.show != 'y':
+        return
+    
     timestamp = get_timestamp(tourney.date)
     if time() > timestamp + constants.TIME_TOURNAMENTS_ARE_SHOWN_AFTER_STARTING:
         return
@@ -53,25 +56,38 @@ def process_row(tourney, processed_data):
 
 def get_processed_dataframe(tourney_data):
     processed_data = pd.DataFrame(columns = constants.DISPLAYED_TOURNEY_INFO_COLUMNS + ['timestamp', 'format', 'info_image_link'])
-    processed_data['format'] = pd.Categorical(processed_data['format'], categories = ['presencial', 'online'], ordered = True)
 
     for tourney in tourney_data.itertuples():
         if constants.IS_LIVE_BUILD:
             try:
                 process_row(tourney, processed_data)
             except:   #If the data processing throws an exception, the tournament just isn't added
-                pass
+                continue
         else:
             process_row(tourney, processed_data)
-
+    
     processed_data.sort_index(inplace = True)
-    processed_data.sort_values(by = ['timestamp', 'format'], inplace = True)
+    if constants.ALWAYS_SHOW_ONLINE_AFTER_PRESENCIAL:
+        processed_data['format'] = pd.Categorical(processed_data['format'], categories = ['presencial', 'online'], ordered = True)
+        processed_data.sort_values(by = ['format', 'timestamp'], inplace = True)
+    else:
+        processed_data.sort_values(by = ['timestamp'], inplace = True)
+    
     return(processed_data)
 
 def get_display_dataframe(processed_dataframe):
     display_dataframe = processed_dataframe.copy()
     display_dataframe = display_dataframe[constants.DISPLAYED_TOURNEY_INFO_COLUMNS]
     return(display_dataframe)
+
+def get_column_width(column):
+    font = ImageFont.truetype(constants.SOURCE_SANS_PATH, 16)
+    entries = [str(entry) for entry in column if not pd.isna(entry)]
+    if not entries:
+        return(None)
+    widths = [font.getlength(entry) for entry in entries]
+    column_width = round(max(widths))
+    return(column_width)
 
 def get_month_start_timestamp(delay = 0):
     now = time() + delay
