@@ -3,3 +3,5 @@ matplotlib
 Pillow
 pandas
 streamlit-screen-stats
+streamlit-browser-session-storage
+streamlit-local-storage
