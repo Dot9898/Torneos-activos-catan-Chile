@@ -25,7 +25,7 @@ def get_formatted_datetime(timestamp):
     if date.hour == 0:
         date = f'{constants.DAYS_IN_SPANISH[date.weekday()]} {date.day}/{date.month}'
     else:
-        date = f'{constants.DAYS_IN_SPANISH[date.weekday()]} {date.day}/{date.month}, {date:%H:%M}'
+        date = f'{constants.DAYS_IN_SPANISH[date.weekday()]} {date.day}/{date.month}, {date.hour}:{date:%M}'
     return(date)
 
 def process_row(tourney, processed_data):
