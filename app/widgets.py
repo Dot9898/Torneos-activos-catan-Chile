@@ -23,7 +23,8 @@ def tourney_data_table():
                  column_order = constants.DISPLAYED_TOURNEY_INFO_COLUMNS, 
                  column_config = config, 
                  placeholder = '-', 
-                 width = 'stretch')
+                 width = 'stretch', 
+                 height = 'content')
 
 def get_tourney_data_image_bytes():
     data = st.session_state['processed_data']
