@@ -21,6 +21,7 @@ ALWAYS_SHOW_ONLINE_AFTER_PRESENCIAL = False
 DATASHEET_LINK = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQC2ACINwhk_rmvTmliMETVqisjFDfOR5vg_glzDtyz_Vns6G3-0AvkWqmvthq-lQpxbUrt39AaTzRh/pub?output=csv'
 
 ORGANIZATION_NAME = {'challenger': 'Challenger Chile', 
+                     'catan_cyc': 'Torneo Catan CyC', 
                      'titanes': 'Titanes de Catan', 
                      'secata': 'La Secata del Catan', 
                      'catanium': 'Catanium', 
@@ -30,7 +31,8 @@ ORGANIZATION_NAME = {'challenger': 'Challenger Chile',
                      'guarida_goblins': 'La Guarida de Goblins'}
 
 ORGANIZATION_LINK = {'challenger': 'https://www.instagram.com/challengercatanchile', 
-                     'titanes': 'https://www.instagram.com/torneocatancyc', 
+                     'catan_cyc': 'https://www.instagram.com/torneocatancyc', 
+                     'titanes': 'https://www.instagram.com/ligatitanesdecyc/', 
                      'secata': 'https://www.instagram.com/lasecatadelcatan/', 
                      'catanium': 'https://catanium.cl/', 
                      'juntas_cataneras': 'https://www.instagram.com/juntascatanerascl/', 
