@@ -26,6 +26,7 @@ ORGANIZATION_NAME = {'challenger': 'Challenger Chile',
                      'secata': 'La Secata del Catan', 
                      'catanium': 'Catanium', 
                      'juntas_cataneras': 'Juntas Cataneras', 
+                     'catan_sur': 'Catan del Sur', 
                      'devir': 'Devir Chile', 
                      'adventure_dreams': 'Adventure Dreams Games', 
                      'guarida_goblins': 'La Guarida de Goblins'}
@@ -36,6 +37,7 @@ ORGANIZATION_LINK = {'challenger': 'https://www.instagram.com/challengercatanchi
                      'secata': 'https://www.instagram.com/lasecatadelcatan/', 
                      'catanium': 'https://catanium.cl/', 
                      'juntas_cataneras': 'https://www.instagram.com/juntascatanerascl/', 
+                     'catan_sur': 'https://www.instagram.com/catandelsur/', 
                      'devir': 'https://devir.cl/', 
                      'adventure_dreams': 'https://www.instagram.com/adventuredreamsgames/', 
                      'guarida_goblins': 'https://www.instagram.com/laguaridadegoblins/'}
