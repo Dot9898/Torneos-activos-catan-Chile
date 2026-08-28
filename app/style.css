@@ -16,6 +16,10 @@
     font-weight: 700 !important;
 }
 
+.stApp {
+    color: #3F3028 !important;
+}
+
 /* Hide Streamlit top bar */
 header[data-testid="stHeader"] {
     display: none;

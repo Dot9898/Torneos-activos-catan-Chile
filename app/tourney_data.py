@@ -24,6 +24,18 @@ def get_formatted_datetime(timestamp):
         date = f'{constants.DAYS_IN_SPANISH[date.weekday()]} {date.day}/{date.month}, {date.hour}:{date:%M}'
     return(date)
 
+def get_formatted_expansions(expansions_string):
+    expansions = [expansion.strip() for expansion in expansions_string.split(',')]
+    formatted_expansions = []
+    for expansion in expansions:
+        if len(expansions) > 1:
+            formatted_expansion = constants.EXPANSION_SHORT[expansion]
+        else:
+            formatted_expansion = constants.EXPANSION[expansion]
+        formatted_expansions.append(formatted_expansion)
+    all_formatted = ', '.join(formatted_expansions)
+    return(all_formatted)
+
 def process_row(tourney, processed_data):
     if tourney.show != 'y':
         return
@@ -33,12 +45,12 @@ def process_row(tourney, processed_data):
         return
 
     date = get_formatted_datetime(timestamp)
-    expansion = constants.EXPANSION[tourney.expansion]
+    expansions = get_formatted_expansions(tourney.expansion)
     organization = f'{constants.ORGANIZATION_LINK[tourney.organization]}#{constants.ORGANIZATION_NAME[tourney.organization]}'
     price = pd.NA if pd.isna(tourney.price) else f'${float(tourney.price):,.0f}'.replace(',', '.')
     processed_data.loc[tourney.Index] = [date, 
                                          tourney.region, 
-                                         expansion, 
+                                         expansions, 
                                          tourney.name, 
                                          organization, 
                                          price, 
@@ -71,8 +83,10 @@ def get_processed_dataframe(tourney_data):
     
     return(processed_data)
 
-def get_display_dataframe(processed_dataframe):
+def get_display_dataframe(processed_dataframe, show_online):
     display_dataframe = processed_dataframe.copy()
+    if not show_online:
+        display_dataframe = display_dataframe[display_dataframe['Región'] != 'Online']
     display_dataframe = display_dataframe[constants.DISPLAYED_TOURNEY_INFO_COLUMNS]
     return(display_dataframe)
 
@@ -94,12 +108,13 @@ def get_month_start_timestamp(delay = 0):
 
 def get_cropped_dataframe(processed_dataframe):
     cropped_data = processed_dataframe.copy()
+    current_timestamp = time()
     to_drop = []
 
     for tourney in cropped_data.itertuples():
-        if time() > tourney.timestamp + constants.TIME_TOURNAMENTS_ARE_SHOWN_AFTER_STARTING:
+        if current_timestamp > tourney.timestamp + constants.TIME_TOURNAMENTS_ARE_SHOWN_AFTER_STARTING:
             to_drop.append(tourney.Index)
-        if tourney.timestamp > get_month_start_timestamp() + constants.TOURNAMENT_DOWNLOAD_LIMIT:
+        if tourney.timestamp > current_timestamp + constants.TOURNAMENT_DOWNLOAD_LIMIT:
             to_drop.append(tourney.Index)
         cropped_data.at[tourney.Index, 'Organiza'] = tourney.Organización.split('#')[1]
     

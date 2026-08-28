@@ -2,7 +2,7 @@
 
 import streamlit as st
 from style import set_style
-from widgets import tourney_data_table, get_tourney_data_image_bytes, table_download_button
+from widgets import show_online_tournaments_checkbox, tourney_data_table, get_tourney_data_image_bytes, table_download_button
 from tourney_data import fetch_tourney_data, get_processed_dataframe
 from screen_mode import get_screen_mode
 
@@ -25,6 +25,8 @@ if st.session_state['screen_mode'] == 'desktop':
     st.title('Torneos activos de catan en Chile', text_alignment = 'center')
 else:
     st.header('Torneos activos de catan en Chile', text_alignment = 'center')
+
+show_online_tournaments_checkbox()
 
 tourney_data_table()
 

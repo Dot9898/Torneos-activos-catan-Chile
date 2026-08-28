@@ -5,15 +5,17 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 from matplotlib.font_manager import FontProperties
 
+HOUR, DAY = 3600, 24 * 3600
+
 
 
 IS_LIVE_BUILD = True
 
-TABLE_DPI = 700
+TABLE_DPI = 500
 BACKGROUND_CENTER = 800
-NEW_MONTH_DELAY = 3 * 24 * 3600   #Image text starts the next month 3 days in advance
-TOURNAMENT_DOWNLOAD_LIMIT = 31 * 24 * 3600
-TIME_TOURNAMENTS_ARE_SHOWN_AFTER_STARTING = 24 * 3600
+NEW_MONTH_DELAY = 5 * DAY   #Image text starts the next month 5 days in advance
+TOURNAMENT_DOWNLOAD_LIMIT = 31 * DAY + NEW_MONTH_DELAY
+TIME_TOURNAMENTS_ARE_SHOWN_AFTER_STARTING = 24 * HOUR
 ADRESS_COLUMN_WIDTH_ADJUSTMENT = -20
 ALWAYS_SHOW_ONLINE_AFTER_PRESENCIAL = False
 
@@ -45,7 +47,14 @@ ORGANIZATION_LINK = {'challenger': 'https://www.instagram.com/challengercatanchi
 EXPANSION = {'base': '🌾Base', 
              'cyc': '⚔️Ciudades y caballeros', 
              'incas': '🦙Auge de los incas', 
-             'tm': '🐉Tierra maldita'}
+             'tm': '🐉Tierra maldita', 
+             'nav': '🌊Navegantes'}
+
+EXPANSION_SHORT = {'base': '🌾Base', 
+             'cyc': '⚔️CyC', 
+             'incas': '🦙Incas', 
+             'tm': '🐉TM', 
+             'nav': '🌊Nav.'}
 
 ROOT_PATH = Path(__file__).resolve().parent.parent
 IMG_PATH = ROOT_PATH / 'assets' / 'img'
@@ -78,7 +87,8 @@ IMAGE_STYLE = {'header_background_color': '#F5E3A3',
 EMOJI_PATHS = {'🌾': IMG_PATH / 'wheat.png', 
                '⚔️': IMG_PATH / 'swords.png', 
                '🦙': IMG_PATH / 'llama.png', 
-               '🐉': IMG_PATH / 'dragon.png'}
+               '🐉': IMG_PATH / 'dragon.png', 
+               '🌊': IMG_PATH / 'sea.png'}
 BACKGROUND_PATH = IMG_PATH / 'catan_background.png'
 TABLE_BACKGROUND_PATH = IMG_PATH / 'catan_table_background.jpg'
 

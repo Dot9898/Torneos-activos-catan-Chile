@@ -5,6 +5,10 @@ import constants
 from tourney_data import get_display_dataframe, get_cropped_dataframe, get_current_month_string, get_column_width
 from dataframe_to_image import convert_to_image_bytes, add_background_and_title
 
+def show_online_tournaments_checkbox():
+    st.checkbox('Mostrar torneos online', 
+                key = 'show_online',
+                value = True)
 
 def add_column_width(config, dataframe, column_name, adjustment = 0):
     width = get_column_width(dataframe[column_name])
@@ -14,7 +18,7 @@ def add_column_width(config, dataframe, column_name, adjustment = 0):
 
 def tourney_data_table():
     data = st.session_state['processed_data']
-    display = get_display_dataframe(data)
+    display = get_display_dataframe(data, st.session_state['show_online'])
     config = constants.DISPLAYED_TOURNEY_INFO_COLUMN_CONFIG
     add_column_width(config, display, 'Dirección', adjustment = constants.ADRESS_COLUMN_WIDTH_ADJUSTMENT)
 
