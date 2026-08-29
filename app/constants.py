@@ -93,7 +93,8 @@ BACKGROUND_PATH = IMG_PATH / 'catan_background.png'
 TABLE_BACKGROUND_PATH = IMG_PATH / 'catan_table_background.jpg'
 
 DISPLAYED_TOURNEY_INFO_COLUMNS = ['Fecha', 'Región', 'Expansión', 'Nombre', 'Organización', 'Precio', 'Cupos', 'Información', 'Inscripción', 'Dirección']
-DISPLAYED_TOURNEY_INFO_COLUMN_CONFIG = {'Precio': st.column_config.MarkdownColumn(alignment = 'right'), 
+DISPLAYED_TOURNEY_INFO_COLUMN_CONFIG = {'Fecha': st.column_config.MarkdownColumn(pinned = True), 
+                                        'Precio': st.column_config.MarkdownColumn(alignment = 'right'), 
                                         'Organización': st.column_config.LinkColumn(display_text = '.*#(.*)'), 
                                         'Información': st.column_config.ImageColumn(), 
                                         'Inscripción': st.column_config.LinkColumn(display_text = '↗')} #↗
