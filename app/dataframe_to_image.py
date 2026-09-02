@@ -24,12 +24,44 @@ def convert_to_fig(dataframe, image_style, emoji_paths):
         else:
             text = str(text)
 
-        for emoji in emoji_paths:
+        parts = []
+        current_text = ""
 
-            if text.startswith(emoji):
-                return emoji, text[len(emoji):]
+        while text:
 
-        return None, text
+            matches = []
+
+            for emoji in emoji_paths:
+
+                position = text.find(emoji)
+
+                if position != -1:
+                    matches.append((position, emoji))
+
+            if not matches:
+
+                current_text += text
+                break
+
+            position, emoji = min(
+                matches,
+                key=lambda item: item[0]
+            )
+
+            current_text += text[:position]
+
+            if current_text:
+                parts.append(("text", current_text))
+
+            parts.append(("emoji", emoji))
+
+            current_text = ""
+            text = text[position + len(emoji):]
+
+        if current_text:
+            parts.append(("text", current_text))
+
+        return parts
 
 
     # Temporary renderer for exact text measurement
@@ -56,20 +88,37 @@ def convert_to_fig(dataframe, image_style, emoji_paths):
 
     def get_cell_width(value):
 
-        emoji, text = split_emoji(value)
+        parts = split_emoji(value)
 
-        width = get_text_width(
-            text,
-            image_style['cell_font'],
-            image_style['cell_font_size']
-        )
+        width = 0
 
-        if emoji:
+        for part_type, part in parts:
 
-            width += (
-                image_style['cell_font_size'] / 72
-                + emoji_text_spacing
-            )
+            if part_type == "text":
+
+                width += get_text_width(
+                    part,
+                    image_style['cell_font'],
+                    image_style['cell_font_size']
+                )
+
+            else:
+
+                # Literal space before every emoji
+                width += get_text_width(
+                    " ",
+                    image_style['cell_font'],
+                    image_style['cell_font_size']
+                )
+
+                width += (
+                    image_style['cell_font_size'] / 72
+                    + emoji_text_spacing
+                )
+
+        # No spacing after the final emoji
+        if parts and parts[-1][0] == "emoji":
+            width -= emoji_text_spacing
 
         return width
 
@@ -177,30 +226,38 @@ def convert_to_fig(dataframe, image_style, emoji_paths):
             return
 
 
-        emoji, text = split_emoji(text)
+        parts = split_emoji(text)
 
 
-        text_width = get_text_width(
-            text,
-            font,
-            font_size
-        )
+        total_width = 0
+
+        for part_type, part in parts:
+
+            if part_type == "text":
+
+                total_width += get_text_width(
+                    part,
+                    font,
+                    font_size
+                )
+
+            else:
+
+                # Literal space before every emoji
+                total_width += get_text_width(
+                    " ",
+                    font,
+                    font_size
+                )
+
+                total_width += font_size / 72
 
 
-        emoji_width = 0
+        # Existing spacing between elements after an emoji
+        for index in range(len(parts) - 1):
 
-        if emoji:
-
-            emoji_width = (
-                font_size / 72
-            )
-
-
-        total_width = (
-            text_width
-            + emoji_width
-            + (emoji_text_spacing if emoji else 0)
-        )
+            if parts[index][0] == "emoji":
+                total_width += emoji_text_spacing
 
 
         start_x = (
@@ -209,50 +266,85 @@ def convert_to_fig(dataframe, image_style, emoji_paths):
         )
 
 
-        if emoji:
+        current_x = start_x
 
-            image = plt.imread(
-                emoji_paths[emoji]
-            )
+        for index, (part_type, part) in enumerate(parts):
 
-            emoji_artist = OffsetImage(
-                image,
-                zoom=font_size / 120
-            )
+            if part_type == "text":
 
-            annotation = AnnotationBbox(
-                emoji_artist,
-                (
-                    start_x + emoji_width / 2,
-                    y + height / 2
-                ),
-                frameon=False
-            )
+                text_width = get_text_width(
+                    part,
+                    font,
+                    font_size
+                )
 
-            ax.add_artist(annotation)
+                ax.text(
+                    current_x,
+                    y + height / 2,
+                    part,
+                    fontproperties=font,
+                    fontsize=font_size,
+                    color=font_color,
+                    va='center',
+                    ha='left'
+                )
+
+                current_x += text_width
+
+            else:
+
+                # Actual normal whitespace character before emoji
+                space_width = get_text_width(
+                    " ",
+                    font,
+                    font_size
+                )
+
+                ax.text(
+                    current_x,
+                    y + height / 2,
+                    " ",
+                    fontproperties=font,
+                    fontsize=font_size,
+                    color=font_color,
+                    va='center',
+                    ha='left'
+                )
+
+                current_x += space_width
 
 
-            text_x = (
-                start_x
-                + emoji_width
-                + emoji_text_spacing
-            )
+                emoji_width = font_size / 72
 
-        else:
+                image = plt.imread(
+                    emoji_paths[part]
+                )
 
-            text_x = start_x
+                emoji_artist = OffsetImage(
+                    image,
+                    zoom=font_size / 120
+                )
+
+                annotation = AnnotationBbox(
+                    emoji_artist,
+                    (
+                        current_x + emoji_width / 2,
+                        y + height / 2
+                    ),
+                    frameon=False
+                )
+
+                ax.add_artist(annotation)
+
+                current_x += emoji_width
 
 
-        ax.text(
-            text_x,
-            y + height / 2,
-            text,
-            fontproperties=font,
-            fontsize=font_size,
-            color=font_color,
-            va='center',
-            ha='left'
-        )
+            if (
+                index < len(parts) - 1
+                and part_type == "emoji"
+            ):
+
+                current_x += emoji_text_spacing
 
 
     # Header
